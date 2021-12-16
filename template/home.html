@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>booking-merz</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+</head>
+
+<body>
+	<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7 col-md-push-5">
+						<div class="booking-cta">
+							<h1>Make your reservation</h1>
+							<p>Check in :  12:05pm</p>
+							<p>Check out :  11:00am</p>
+						</div>
+					</div>
+					<div class="col-md-5 col-md-pull-7">
+						<div class="booking-form">
+							<form method="POST">
+								{%csrf_token%}
+								<div class="form-group">
+									<span class="form-label">Destination</span>
+									<select class="form-control" name="destenition">
+										<option>Shiraz</option>
+										<option>Tehran</option>
+									</select>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">Check In</span>
+											<input class="form-control" type="date" name="check_in" required>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">Check out</span>
+											<input class="form-control" type="date" name="check_out" required>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">Adults</span>
+											<select class="form-control" name="adults">
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+											</select>
+											<span class="select-arrow"></span>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<span class="form-label">Children</span>
+											<select class="form-control" name="children">
+												<option>0</option>
+												<option>1</option>
+												<option>2</option>
+											</select>
+											<span class="select-arrow"></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-btn">
+									<button class="submit-btn">Check availability</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

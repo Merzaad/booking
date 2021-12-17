@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 import datetime , json
 import pytz
 c=[] #Temporary to save filter query.
+c_in =''
+c_out=''
 
 #utc=pytz.UTC 
 #utc.localize(datetime_data)
@@ -20,9 +22,14 @@ class home(View):
         city=request.POST['destenition']
         checkin=datetime.datetime.strptime(request.POST['check_in'], '%Y-%m-%d').date()
         checkout=datetime.datetime.strptime(request.POST['check_out'], '%Y-%m-%d').date()
-        
+        global c_in
+        global c_out
+        c_in = request.POST['check_in']
+        c_out = request.POST['check_out']
         #adults=request.POST['adults']
         #children=request.POST['children']
+
+        
         
 
         a=[]
@@ -58,10 +65,12 @@ class results(View):
             c = []
             return render(request,'result.html',{'rm':rm})
         def post(self, request):
-            room_id=request.POST['room_id']
+            global c_in
+            global c_out
+            res_room = room.objects.get(pk=request.POST['room_id'])
             current_user = request.user
-            #res = reservation ( customer = current_user.id , room = room_id , check_in = checkin , check_out = checkout )
-            #res.save()
+            res = reservation ( customer = current_user , room =  res_room , check_in = datetime.datetime.strptime(c_in, '%Y-%m-%d').date() , check_out = datetime.datetime.strptime(c_out, '%Y-%m-%d').date() )
+            res.save()
             return redirect('/')
             
 

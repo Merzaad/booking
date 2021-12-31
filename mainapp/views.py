@@ -3,6 +3,7 @@ from .models import room, room_number, reservation
 from django.views import View
 from django.contrib import messages
 import datetime 
+from django.contrib.auth.models import User
 c=[] #Temporary to save filter query.
 c_in =''
 c_out=''
@@ -19,8 +20,8 @@ class home(View):
         checkout=datetime.datetime.strptime(request.POST['check_out'], '%Y-%m-%d').date()
         global c_in
         global c_out
-        c_in = request.POST['check_in']
-        c_out = request.POST['check_out']
+        c_in = datetime.datetime.strptime(request.POST['check_in'], '%Y-%m-%d').date()
+        c_out = datetime.datetime.strptime(request.POST['check_out'], '%Y-%m-%d').date()
         #adults=request.POST['adults']
         #children=request.POST['children']
         a=[]
@@ -56,7 +57,7 @@ class results(View):
             global c_in
             global c_out
             res_room = room.objects.get(pk=request.POST['room_id'])
-            current_user = request.user
-            res = reservation ( customer = current_user , room =  res_room , check_in = datetime.datetime.strptime(c_in, '%Y-%m-%d').date() , check_out = datetime.datetime.strptime(c_out, '%Y-%m-%d').date() )
+            current_user = User.objects.get(id=request.user.id)
+            res = reservation ( customer = current_user , room =  res_room , check_in = c_in , check_out = c_out )
             res.save()
             return redirect('/')

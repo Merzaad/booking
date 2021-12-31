@@ -2,8 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\booking",
-    "\\mainapp"
+    "\\mainapp",
+    "\\static",
+    "\\static\\assets",
+    "\\static\\assets\\css",
+    "\\static\\css",
+    "\\template"
   ],
-  "SelectedNode": "\\mainapp\\views.py",
+  "SelectedNode": "\\static\\assets\\css\\style.css",
   "PreviewInSolutionExplorer": false
 }
